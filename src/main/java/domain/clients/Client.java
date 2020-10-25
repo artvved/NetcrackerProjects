@@ -1,4 +1,6 @@
-package domain;
+package domain.clients;
+
+import domain.clients.util.Gender;
 
 import java.util.Date;
 
