@@ -13,8 +13,8 @@ public class CellularCommunicationContract extends Contract {
 
     }
 
-    public CellularCommunicationContract(Long id, Date startDate, Date endDate, Client client, int minutes, int megabytes, int sms) {
-        super(id, startDate, endDate, client);
+    public CellularCommunicationContract(Long id, int number,Date startDate, Date endDate, Client client, int minutes, int megabytes, int sms) {
+        super(id,number, startDate, endDate, client);
         this.minutes = minutes;
         this.megabytes = megabytes;
         this.sms = sms;

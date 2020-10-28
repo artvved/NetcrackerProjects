@@ -6,16 +6,19 @@ import java.util.Date;
 
 public class Contract {
     private Long id;
+    private int number;
     private Date startDate;
     private Date endDate;
     private Client client;
+
 
     public Contract() {
 
     }
 
-    public Contract(Long id, Date startDate, Date endDate, Client client) {
+    public Contract(Long id, int number, Date startDate, Date endDate, Client client) {
         this.id = id;
+        this.number = number;
         this.startDate = startDate;
         this.endDate = endDate;
         this.client = client;
@@ -51,5 +54,13 @@ public class Contract {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
     }
 }

@@ -12,8 +12,8 @@ public class DigitalTVContract extends Contract {
     public DigitalTVContract() {
     }
 
-    public DigitalTVContract(Long id, Date startDate, Date endDate, Client client, List<TVChannel> channelsPackage) {
-        super(id, startDate, endDate, client);
+    public DigitalTVContract(Long id,int number, Date startDate, Date endDate, Client client, List<TVChannel> channelsPackage) {
+        super(id, number, startDate, endDate, client);
         this.channelsPackage = channelsPackage;
     }
 

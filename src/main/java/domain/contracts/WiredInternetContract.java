@@ -10,8 +10,8 @@ public class WiredInternetContract extends Contract {
     public WiredInternetContract() {
     }
 
-    public WiredInternetContract(Long id, Date startDate, Date endDate, Client client, int maxInternetSpeed) {
-        super(id, startDate, endDate, client);
+    public WiredInternetContract(Long id, int number, Date startDate, Date endDate, Client client, int maxInternetSpeed) {
+        super(id, number, startDate, endDate, client);
         this.maxInternetSpeed = maxInternetSpeed;
     }
 
