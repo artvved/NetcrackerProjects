@@ -17,9 +17,11 @@ public class TestContractRepository {
     @Test
     public void testAddByIdIncreaseAdding() {
         ContractRepository contractRepository = new ContractRepository(new Contract[10]);
-        Contract c = new Contract();
-        c.setId((long) 11);
-        contractRepository.addById(c);
+        for (int i = 0; i < 11; i++) {
+            Contract c = new Contract();
+            contractRepository.addById(c);
+        }
+
         Assert.assertEquals(20,contractRepository.getAll().length);
     }
 
