@@ -1,10 +1,12 @@
-import domain.clients.Client;
+package domain.clients;
+
+import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.time.LocalDate;
 
-public class TestClient {
+public class ClientTest extends TestCase {
     @Test
     public void testGetAge(){
         Client client1=new Client();
