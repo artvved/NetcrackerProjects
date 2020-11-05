@@ -3,10 +3,7 @@ package repository;
 import domain.contracts.Contract;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.function.Predicate;
 
 
@@ -95,6 +92,10 @@ public class ContractRepository {
             }
         }
         return list;
+    }
+
+    public void sort(IRepositorySorter<Contract> repositorySorter,Comparator<Contract> comparator){
+        repositorySorter.sort(contracts,pointer,comparator);
     }
 
     private void shift(int pos) {
