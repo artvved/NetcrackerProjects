@@ -3,8 +3,11 @@ package repository;
 import domain.contracts.Contract;
 
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 
 public class ContractRepository {
@@ -83,16 +86,27 @@ public class ContractRepository {
         }
     }
 
+    public List<Contract> find(Predicate<Contract> predicate) {
+        List<Contract> list=new ArrayList<>();
+        for (int i = 0; i < pointer; i++) {
+            Contract cur = contracts[i];
+            if (predicate.test(cur)) {
+                list.add(cur);
+            }
+        }
+        return list;
+    }
+
     private void shift(int pos) {
-        int innerPointer=pointer;
+        int innerPointer = pointer;
         if (pointer >= contracts.length) {
             innerPointer--;
         }
-            for (int i = pos; i < innerPointer; i++) {
-                contracts[i] = contracts[i + 1];
-            }
-            contracts[innerPointer]=null;
-            pointer--;
+        for (int i = pos; i < innerPointer; i++) {
+            contracts[i] = contracts[i + 1];
+        }
+        contracts[innerPointer] = null;
+        pointer--;
 
     }
 

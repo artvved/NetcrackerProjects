@@ -5,7 +5,9 @@ import junit.framework.TestCase;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class ContractRepositoryTest extends TestCase {
     @Test
@@ -62,4 +64,44 @@ public class ContractRepositoryTest extends TestCase {
         contractRepository.deleteById((long) 1);
         Assert.assertEquals(2, contractRepository.getOccupancy());
     }
+    @Test
+    public void testFindById(){
+        ContractRepository contractRepository = new ContractRepository(new Contract[3]);
+        for (int i = 0; i < 3; i++) {
+            Contract c = new Contract();
+            c.setId((long) i);
+            contractRepository.add(c);
+        }
+        List<Contract> list=contractRepository.find(new Predicate<Contract>() {
+            @Override
+            public boolean test(Contract contract) {
+                return contract.getId()==1;
+            }
+        });
+        Assert.assertEquals(1, (int)(long)list.get(0).getId());
+    }
+    @Test
+    public void testFindByNumber(){
+        ContractRepository contractRepository = new ContractRepository(new Contract[3]);
+        for (int i = 0; i < 3; i++) {
+            Contract c = new Contract();
+            c.setId((long) i);
+            c.setNumber(1);
+            contractRepository.add(c);
+        }
+        List<Contract> list=contractRepository.find(new Predicate<Contract>() {
+            @Override
+            public boolean test(Contract contract) {
+                return contract.getNumber()==1;
+            }
+        });
+        for (int i = 0; i < list.size(); i++) {
+            Assert.assertEquals(1, (int)(long)list.get(i).getNumber());
+        }
+        Assert.assertEquals(3, list.size());
+
+
+    }
+
+
 }
