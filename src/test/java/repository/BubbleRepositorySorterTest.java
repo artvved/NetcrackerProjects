@@ -21,7 +21,7 @@ public class BubbleRepositorySorterTest extends TestCase {
             contractRepository.add(c);
         }
         BubbleRepositorySorter brs = new BubbleRepositorySorter();
-        brs.sort(contractRepository.getAll(), contractRepository.getOccupancy(), new Comparator<Contract>() {
+        contractRepository.sort(brs, new Comparator<Contract>() {
             @Override
             public int compare(Contract contract, Contract t1) {
                 if (contract.getNumber() < t1.getNumber()) {

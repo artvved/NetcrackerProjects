@@ -83,6 +83,11 @@ public class ContractRepository {
         }
     }
 
+    /**
+     *  finds repository elements which satisfy the search condition
+     * @param predicate predicate usage is to differ search conditions
+     * @return list of contracts which satisfy the search condition
+     */
     public List<Contract> find(Predicate<Contract> predicate) {
         List<Contract> list=new ArrayList<>();
         for (int i = 0; i < pointer; i++) {
@@ -94,6 +99,11 @@ public class ContractRepository {
         return list;
     }
 
+    /**
+     * sorts repository in certain way using certain comparison pattern
+     * @param repositorySorter realisation of repository sorter which contains certain sort algorithm
+     * @param comparator comparator is used to transfer certain criterion of comparison
+     */
     public void sort(IRepositorySorter<Contract> repositorySorter,Comparator<Contract> comparator){
         repositorySorter.sort(contracts,pointer,comparator);
     }
