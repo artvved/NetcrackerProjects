@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 
 public class ContractRepository {
     private Contract[] contracts;
+    private IRepositorySorter<Contract> sorter;
     /**
      * index of next free field in array of contracts
      */
@@ -26,8 +27,9 @@ public class ContractRepository {
      *
      * @param contracts array of contracts
      */
-    public ContractRepository(Contract[] contracts) {
+    public ContractRepository(Contract[] contracts,IRepositorySorter<Contract> sorter) {
         this.contracts = contracts;
+        this.sorter=sorter;
     }
 
     /**
@@ -104,8 +106,8 @@ public class ContractRepository {
      * @param repositorySorter realisation of repository sorter which contains certain sort algorithm
      * @param comparator comparator is used to transfer certain criterion of comparison
      */
-    public void sort(IRepositorySorter<Contract> repositorySorter,Comparator<Contract> comparator){
-        repositorySorter.sort(contracts,pointer,comparator);
+    public void sort(Comparator<Contract> comparator){
+        sorter.sort(contracts,pointer,comparator);
     }
 
     private void shift(int pos) {

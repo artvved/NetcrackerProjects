@@ -12,7 +12,8 @@ import java.util.function.Predicate;
 public class ContractRepositoryTest extends TestCase {
     @Test
     public void testAddSimpleAdding() {
-        ContractRepository contractRepository = new ContractRepository(new Contract[10]);
+        ContractRepository contractRepository = new ContractRepository(new Contract[3],
+                new BubbleRepositorySorter());
         Contract c = new Contract();
         c.setId((long) 1);
         contractRepository.add(c);
@@ -21,7 +22,8 @@ public class ContractRepositoryTest extends TestCase {
 
     @Test
     public void testAddIncreaseAdding() {
-        ContractRepository contractRepository = new ContractRepository(new Contract[10]);
+        ContractRepository contractRepository = new ContractRepository(new Contract[3],
+                new BubbleRepositorySorter());
         for (int i = 0; i < 11; i++) {
             Contract c = new Contract();
             contractRepository.add(c);
@@ -32,7 +34,8 @@ public class ContractRepositoryTest extends TestCase {
 
     @Test
     public void testDeleteById() {
-        ContractRepository contractRepository = new ContractRepository(new Contract[10]);
+        ContractRepository contractRepository = new ContractRepository(new Contract[3],
+                new BubbleRepositorySorter());
         Contract c = new Contract();
         c.setId((long) 1);
         contractRepository.add(c);
@@ -42,7 +45,8 @@ public class ContractRepositoryTest extends TestCase {
 
     @Test
     public void testDeleteByIdShifting() {
-        ContractRepository contractRepository = new ContractRepository(new Contract[10]);
+        ContractRepository contractRepository = new ContractRepository(new Contract[3],
+                new BubbleRepositorySorter());
         for (int i = 0; i < 3; i++) {
             Contract c = new Contract();
             c.setId((long) i);
@@ -54,7 +58,8 @@ public class ContractRepositoryTest extends TestCase {
     }
     @Test
     public void testDeleteByIdShifting1() {
-        ContractRepository contractRepository = new ContractRepository(new Contract[3]);
+        ContractRepository contractRepository = new ContractRepository(new Contract[3],
+                new BubbleRepositorySorter());
         for (int i = 0; i < 3; i++) {
             Contract c = new Contract();
             c.setId((long) i);
@@ -66,7 +71,8 @@ public class ContractRepositoryTest extends TestCase {
     }
     @Test
     public void testFindById(){
-        ContractRepository contractRepository = new ContractRepository(new Contract[3]);
+        ContractRepository contractRepository = new ContractRepository(new Contract[3],
+                new BubbleRepositorySorter());
         for (int i = 0; i < 3; i++) {
             Contract c = new Contract();
             c.setId((long) i);
@@ -82,7 +88,8 @@ public class ContractRepositoryTest extends TestCase {
     }
     @Test
     public void testFindByNumber(){
-        ContractRepository contractRepository = new ContractRepository(new Contract[3]);
+        ContractRepository contractRepository = new ContractRepository(new Contract[3],
+                new BubbleRepositorySorter());
         for (int i = 0; i < 3; i++) {
             Contract c = new Contract();
             c.setId((long) i);

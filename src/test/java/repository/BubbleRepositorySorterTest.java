@@ -13,15 +13,16 @@ public class BubbleRepositorySorterTest extends TestCase {
 
     @Test
     public void testRepositoryBubbleSortNumbers() {
-        ContractRepository contractRepository = new ContractRepository(new Contract[3]);
+        ContractRepository contractRepository = new ContractRepository(new Contract[3],
+                new BubbleRepositorySorter());
         for (int i = 0; i < 3; i++) {
             Contract c = new Contract();
             c.setId((long) i);
             c.setNumber(2 - i);
             contractRepository.add(c);
         }
-        BubbleRepositorySorter brs = new BubbleRepositorySorter();
-        contractRepository.sort(brs, new Comparator<Contract>() {
+
+        contractRepository.sort( new Comparator<Contract>() {
             @Override
             public int compare(Contract contract, Contract t1) {
                 if (contract.getNumber() < t1.getNumber()) {
