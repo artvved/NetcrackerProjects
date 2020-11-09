@@ -27,9 +27,9 @@ public class ContractRepository {
      *
      * @param contracts array of contracts
      */
-    public ContractRepository(Contract[] contracts,IRepositorySorter<Contract> sorter) {
+    public ContractRepository(Contract[] contracts, IRepositorySorter<Contract> sorter) {
         this.contracts = contracts;
-        this.sorter=sorter;
+        this.sorter = sorter;
     }
 
     /**
@@ -86,28 +86,29 @@ public class ContractRepository {
     }
 
     /**
-     *  finds repository elements which satisfy the search condition
+     * finds repository elements which satisfy the search condition
+     *
      * @param predicate predicate usage is to differ search conditions
-     * @return list of contracts which satisfy the search condition
+     * @return new repository with contracts which satisfy the search condition
      */
-    public List<Contract> find(Predicate<Contract> predicate) {
-        List<Contract> list=new ArrayList<>();
+    public ContractRepository find(Predicate<Contract> predicate) {
+        ContractRepository contractRepo = new ContractRepository(new Contract[pointer], sorter);
         for (int i = 0; i < pointer; i++) {
             Contract cur = contracts[i];
             if (predicate.test(cur)) {
-                list.add(cur);
+                contractRepo.add(cur);
             }
         }
-        return list;
+        return contractRepo;
     }
 
     /**
      * sorts repository in certain way using certain comparison pattern
-     * @param repositorySorter realisation of repository sorter which contains certain sort algorithm
-     * @param comparator comparator is used to transfer certain criterion of comparison
+     *
+     * @param comparator  comparator is used to transfer certain criterion of comparison
      */
-    public void sort(Comparator<Contract> comparator){
-        sorter.sort(contracts,pointer,comparator);
+    public void sort(Comparator<Contract> comparator) {
+        sorter.sort(contracts, pointer, comparator);
     }
 
     private void shift(int pos) {

@@ -78,13 +78,13 @@ public class ContractRepositoryTest extends TestCase {
             c.setId((long) i);
             contractRepository.add(c);
         }
-        List<Contract> list=contractRepository.find(new Predicate<Contract>() {
+        ContractRepository res=contractRepository.find(new Predicate<Contract>() {
             @Override
             public boolean test(Contract contract) {
                 return contract.getId()==1;
             }
         });
-        Assert.assertEquals(1, (int)(long)list.get(0).getId());
+        Assert.assertEquals(1, (int)(long)res.getById((long)0).get().getId());
     }
     @Test
     public void testFindByNumber(){
@@ -96,16 +96,16 @@ public class ContractRepositoryTest extends TestCase {
             c.setNumber(1);
             contractRepository.add(c);
         }
-        List<Contract> list=contractRepository.find(new Predicate<Contract>() {
+        ContractRepository res=contractRepository.find(new Predicate<Contract>() {
             @Override
             public boolean test(Contract contract) {
                 return contract.getNumber()==1;
             }
         });
-        for (int i = 0; i < list.size(); i++) {
-            Assert.assertEquals(1, (int)(long)list.get(i).getNumber());
+        for (int i = 0; i < res.getOccupancy(); i++) {
+            Assert.assertEquals(1, (int)(long)res.getById((long)i).get().getNumber());
         }
-        Assert.assertEquals(3, list.size());
+        Assert.assertEquals(3, res.getOccupancy());
 
 
     }
