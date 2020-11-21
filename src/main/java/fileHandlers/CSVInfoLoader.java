@@ -65,6 +65,11 @@ public class CSVInfoLoader {
         return clients;
     }
 
+    /**
+     * opens csv file, parses each line to contract and adds new contract to repository
+     * @param path path of csv file which we want to open
+     * @throws Exception exception if name of contract in file does not match to available ones
+     */
     public void addContractsFromCSVFile(String path) throws Exception {
         String line;
         String cvsSplitBy = ";";
@@ -96,6 +101,7 @@ public class CSVInfoLoader {
                     Long id = Long.parseLong(stringContract[0]);
                     Gender gender = Gender.valueOf(stringContract[2]);
                     LocalDate birth = LocalDate.parse(stringContract[3],formatter);
+
                     if (patronymic == null)
                         client = new Client(id, firstName, lastName, gender, birth, passport);
                     else

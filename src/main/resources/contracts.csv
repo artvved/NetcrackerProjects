@@ -1,3 +1,6 @@
-idКлиента;ФИОКлинета;ПолКлиента;ДатаРождения;ДанныеПаспорта;idКонтракта;номерКонтракта;startdate;enddate;ТипКонтракта;ДопИнформацияПоКонтракту;
+idКлиента;ФИОКлинета;ПолКлиента;ДатаРождения;ДанныеПаспорта;idКонтракта;НомерКонтракта;ДатаНачалаКонтракта;ДатаКонцаКонтракта;ТипКонтракта;ДопИнформацияПоКонтракту;
 1;John Green Ragnarson;MALE;12.05.2000;4444666666;1;1;12.05.2000;12.05.2200;WiredInternetContract;12;
-2;John Green Ragnarson;MALE;12.05.2000;4444666666;2;2;12.05.2000;12.05.2200;DigitalTVContract;RUSSIA_1 SPAS;
+2;Bryce Red Ragnarson;MALE;12.05.2000;4445666666;2;2;12.05.2000;12.05.2200;DigitalTVContract;RUSSIA_1 SPAS;
+3;Barbara Green Collin;FEMALE;12.05.2000;4447666666;3;3;18.08.2000;12.05.2100;DigitalTVContract;SPAS RUSSIA_24;
+4;John Brown;MALE;12.05.2000;4448666666;4;4;12.05.2000;12.05.2200;WiredInternetContract;13;
+5;Kyle Green Ragnarson;MALE;12.05.2000;4449666666;5;5;12.05.2000;12.05.2200;CellularCommunicationContract;12 12 12;

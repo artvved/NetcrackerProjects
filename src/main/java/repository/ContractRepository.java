@@ -32,6 +32,9 @@ public class ContractRepository {
         this.sorter = sorter;
     }
 
+    public ContractRepository() {
+    }
+
     /**
      * Method which provides opportunity to add new contract to repository.
      * Method increases length of repository if needed.
