@@ -3,6 +3,7 @@ package domain.contracts;
 import domain.clients.Client;
 import domain.contracts.util.TVChannel;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -12,7 +13,7 @@ public class DigitalTVContract extends Contract {
     public DigitalTVContract() {
     }
 
-    public DigitalTVContract(Long id,int number, Date startDate, Date endDate, Client client, List<TVChannel> channelsPackage) {
+    public DigitalTVContract(Long id, int number, LocalDate startDate, LocalDate endDate, Client client, List<TVChannel> channelsPackage) {
         super(id, number, startDate, endDate, client);
         this.channelsPackage = channelsPackage;
     }

@@ -1,0 +1,3 @@
+idКлиента;ФИОКлинета;ПолКлиента;ДатаРождения;ДанныеПаспорта;idКонтракта;номерКонтракта;startdate;enddate;ТипКонтракта;ДопИнформацияПоКонтракту;
+1;John Green Ragnarson;MALE;12.05.2000;4444666666;1;1;12.05.2000;12.05.2200;WiredInternetContract;12;
+2;John Green Ragnarson;MALE;12.05.2000;4444666666;2;2;12.05.2000;12.05.2200;DigitalTVContract;RUSSIA_1 SPAS;

@@ -2,6 +2,7 @@ package domain.contracts;
 
 import domain.clients.Client;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CellularCommunicationContract extends Contract {
@@ -13,7 +14,7 @@ public class CellularCommunicationContract extends Contract {
 
     }
 
-    public CellularCommunicationContract(Long id, int number,Date startDate, Date endDate, Client client, int minutes, int megabytes, int sms) {
+    public CellularCommunicationContract(Long id, int number, LocalDate startDate, LocalDate endDate, Client client, int minutes, int megabytes, int sms) {
         super(id,number, startDate, endDate, client);
         this.minutes = minutes;
         this.megabytes = megabytes;

@@ -2,6 +2,7 @@ package domain.contracts;
 
 import domain.clients.Client;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class WiredInternetContract extends Contract {
@@ -10,7 +11,7 @@ public class WiredInternetContract extends Contract {
     public WiredInternetContract() {
     }
 
-    public WiredInternetContract(Long id, int number, Date startDate, Date endDate, Client client, int maxInternetSpeed) {
+    public WiredInternetContract(Long id, int number, LocalDate startDate, LocalDate endDate, Client client, int maxInternetSpeed) {
         super(id, number, startDate, endDate, client);
         this.maxInternetSpeed = maxInternetSpeed;
     }

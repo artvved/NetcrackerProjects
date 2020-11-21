@@ -4,6 +4,7 @@ import domain.clients.util.Gender;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.Objects;
 
 
 /**
@@ -17,14 +18,14 @@ public class Client {
     private String patronymic;
     private Gender gender;
     private LocalDate birthDate;
-    private int passport;
+    private Long passport;
 
 
 
     public Client() {
     }
 
-    public Client(Long id, String firstName, String lastName, String patronymic, Gender gender, LocalDate birthDate, int passport) {
+    public Client(Long id, String firstName, String lastName, String patronymic, Gender gender, LocalDate birthDate, Long passport) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -33,7 +34,7 @@ public class Client {
         this.birthDate = birthDate;
         this.passport = passport;
     }
-    public Client(Long id, String firstName, String lastName,  Gender gender, LocalDate birthDate, int passport) {
+    public Client(Long id, String firstName, String lastName,  Gender gender, LocalDate birthDate, Long passport) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -91,11 +92,11 @@ public class Client {
         this.id = id;
     }
 
-    public int getPassport() {
+    public Long getPassport() {
         return passport;
     }
 
-    public void setPassport(int passport) {
+    public void setPassport(Long passport) {
         this.passport = passport;
     }
 
@@ -104,11 +105,16 @@ public class Client {
         return Period.between(birthDate, LocalDate.now()).getYears();
     }
 
-    public static void main(String[] args) {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return Objects.equals(passport, client.passport);
+    }
 
-        Client c=new Client();
-        c.setBirthDate(LocalDate.of(2000,12,5));
-        int i=c.getAge();
-        System.out.println(i);
+    @Override
+    public int hashCode() {
+        return Objects.hash(passport);
     }
 }

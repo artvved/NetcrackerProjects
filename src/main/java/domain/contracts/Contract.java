@@ -2,13 +2,14 @@ package domain.contracts;
 
 import domain.clients.Client;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Contract {
     private Long id;
     private int number;
-    private Date startDate;
-    private Date endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private Client client;
 
 
@@ -16,7 +17,7 @@ public class Contract {
 
     }
 
-    public Contract(Long id, int number, Date startDate, Date endDate, Client client) {
+    public Contract(Long id, int number, LocalDate startDate, LocalDate endDate, Client client) {
         this.id = id;
         this.number = number;
         this.startDate = startDate;
@@ -32,19 +33,19 @@ public class Contract {
         this.id = id;
     }
 
-    public Date getStartDate() {
+    public LocalDate getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(Date startDate) {
+    public void setStartDate(LocalDate startDate) {
         this.startDate = startDate;
     }
 
-    public Date getEndDate() {
+    public LocalDate getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
     }
 
