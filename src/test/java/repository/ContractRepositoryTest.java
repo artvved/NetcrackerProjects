@@ -84,7 +84,7 @@ public class ContractRepositoryTest extends TestCase {
                 return contract.getId()==1;
             }
         });
-        Assert.assertEquals(1, (int)(long)res.getById((long)0).get().getId());
+        Assert.assertEquals(1, (int)(long)res.getById((long)1).get().getId());
     }
     @Test
     public void testFindByNumber(){

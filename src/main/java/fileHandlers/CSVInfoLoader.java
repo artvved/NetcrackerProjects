@@ -8,6 +8,18 @@ import domain.contracts.DigitalTVContract;
 import domain.contracts.WiredInternetContract;
 import domain.contracts.util.TVChannel;
 import repository.ContractRepository;
+import validators.Status;
+import validators.ValidationResultMessage;
+import validators.Validator;
+import validators.clientValidators.*;
+import validators.contractValidators.ContractEndDateValidator;
+import validators.contractValidators.ContractNumberValidator;
+import validators.contractValidators.ContractStartDateValidator;
+import validators.contractValidators.cellularCommunicationContractValidators.MegabytesAmountValidator;
+import validators.contractValidators.cellularCommunicationContractValidators.MinutesAmountValidator;
+import validators.contractValidators.cellularCommunicationContractValidators.SMSAmountValidator;
+import validators.contractValidators.digitalTVContractValidators.ChannelsPackageValidator;
+import validators.contractValidators.wiredInternetContractValidators.MaxInternetSpeedValidator;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -22,10 +34,24 @@ import java.util.Set;
 
 public class CSVInfoLoader {
     private ContractRepository contractRepository;
+    private List<Validator> validators = new ArrayList<>();
 
     public CSVInfoLoader(ContractRepository contractRepository) {
         this.contractRepository = contractRepository;
+        initValidators();
+    }
 
+    private void initValidators() {
+        validators.add(new FirstNameValidator());
+        validators.add(new LastNameValidator());
+        validators.add(new PatronymicValidator());
+        validators.add(new GenderValidator());
+        validators.add(new BirthDateValidator());
+        validators.add(new PassportValidator());
+
+        validators.add(new ContractNumberValidator());
+        validators.add(new ContractStartDateValidator());
+        validators.add(new ContractEndDateValidator());
     }
 
     public CSVInfoLoader() {
@@ -55,7 +81,7 @@ public class CSVInfoLoader {
         return list;
     }
 
-    private Set<Client> getSetOfExistingClients(){
+    private Set<Client> getSetOfExistingClients() {
         Set<Client> clients = new HashSet<>();
         Contract[] contracts = contractRepository.getAll();
         for (int i = 0; i < contractRepository.getOccupancy(); i++) {
@@ -67,13 +93,14 @@ public class CSVInfoLoader {
 
     /**
      * opens csv file, parses each line to contract and adds new contract to repository
+     *
      * @param path path of csv file which we want to open
      * @throws Exception exception if name of contract in file does not match to available ones
      */
     public void addContractsFromCSVFile(String path) throws Exception {
         String line;
         String cvsSplitBy = ";";
-        DateTimeFormatter formatter=DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         boolean firstLine = true;
         Set<Client> clients = getSetOfExistingClients();
 
@@ -100,7 +127,7 @@ public class CSVInfoLoader {
 
                     Long id = Long.parseLong(stringContract[0]);
                     Gender gender = Gender.valueOf(stringContract[2]);
-                    LocalDate birth = LocalDate.parse(stringContract[3],formatter);
+                    LocalDate birth = LocalDate.parse(stringContract[3], formatter);
 
                     if (patronymic == null)
                         client = new Client(id, firstName, lastName, gender, birth, passport);
@@ -113,18 +140,23 @@ public class CSVInfoLoader {
                 Contract contract;
                 Long contractId = Long.parseLong(stringContract[5]);
                 int number = Integer.parseInt(stringContract[6]);
-                LocalDate start = LocalDate.parse(stringContract[7],formatter);
-                LocalDate end = LocalDate.parse(stringContract[8],formatter);
+                LocalDate start = LocalDate.parse(stringContract[7], formatter);
+                LocalDate end = LocalDate.parse(stringContract[8], formatter);
 
+                List<Validator> specList = new ArrayList<>();
                 switch (stringContract[9]) {
                     case "WiredInternetContract":
                         int maxSpeed = Integer.parseInt(stringContract[10]);
                         contract = new WiredInternetContract(contractId, number, start, end, client, maxSpeed);
+                        specList.add(new MaxInternetSpeedValidator());
+                        validators.add(new MaxInternetSpeedValidator());
                         break;
                     case "DigitalTVContract":
                         String[] stringChannels = stringContract[10].split(" ");
                         List<TVChannel> channels = parseTVChannels(stringChannels);
                         contract = new DigitalTVContract(contractId, number, start, end, client, channels);
+                        specList.add(new ChannelsPackageValidator());
+                        validators.add(new ChannelsPackageValidator());
                         break;
                     case "CellularCommunicationContract":
                         String[] stringContractParams = stringContract[10].split(" ");
@@ -132,18 +164,40 @@ public class CSVInfoLoader {
                         int megabytes = Integer.parseInt(stringContractParams[1]);
                         int sms = Integer.parseInt(stringContractParams[2]);
                         contract = new CellularCommunicationContract(contractId, number, start, end, client, minutes, megabytes, sms);
+                        specList.add(new MegabytesAmountValidator());
+                        validators.add(new MegabytesAmountValidator());
+                        specList.add(new MinutesAmountValidator());
+                        validators.add(new MinutesAmountValidator());
+                        specList.add(new SMSAmountValidator());
+                        validators.add(new SMSAmountValidator());
                         break;
                     default:
                         throw new Exception("No such variant of contract");
                 }
+                boolean contractIsOk=true;
+                List<ValidationResultMessage> results = validate(contract);
+                for (ValidationResultMessage msg:results) {
+                    if (msg.getStatus().equals(Status.ERROR))
+                        contractIsOk=false;
+                        break;
+                }
+                if (contractIsOk)
                 contractRepository.add(contract);
-
+                validators.removeAll(specList);
             }
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private List<ValidationResultMessage> validate(Contract contract) {
+        List<ValidationResultMessage> msgs = new ArrayList<>();
+        for (Validator v : validators) {
+            msgs.add(v.validate(contract));
+        }
+        return msgs;
     }
 
     public ContractRepository getContractRepository() {
