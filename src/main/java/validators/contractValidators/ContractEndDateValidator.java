@@ -24,6 +24,7 @@ public class ContractEndDateValidator implements Validator {
                 endDate.isBefore(startDate)) {
             msg.setErrorFieldName("endDate");
             msg.setStatus(Status.ERROR);
+            msg.setMessage("Error in validating "+msg.getErrorFieldName());
         } else if (endDate.equals(WARNING_DATE)) {
             msg.setStatus(Status.WARNING);
         } else {

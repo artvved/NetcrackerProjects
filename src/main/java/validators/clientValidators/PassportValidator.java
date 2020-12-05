@@ -20,6 +20,8 @@ public class PassportValidator implements Validator {
                 passport < 0) {
             msg.setErrorFieldName("passport");
             msg.setStatus(Status.ERROR);
+            msg.setMessage("Error in validating "+msg.getErrorFieldName());
+
         } else if (passport.equals(MAX_NUMBER)) {
             msg.setStatus(Status.WARNING);
         } else {

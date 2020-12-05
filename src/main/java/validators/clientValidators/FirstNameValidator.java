@@ -21,6 +21,8 @@ public class FirstNameValidator implements Validator {
                 firstName.length() > MAX_FIRST_NAME_LEN) {
             msg.setErrorFieldName("firstName");
             msg.setStatus(Status.ERROR);
+            msg.setMessage("Error in validating "+msg.getErrorFieldName());
+
         } else if (firstName.length() == MAX_FIRST_NAME_LEN) {
             msg.setStatus(Status.WARNING);
         } else {

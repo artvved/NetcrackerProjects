@@ -20,6 +20,8 @@ public class LastNameValidator implements Validator {
                 lastName.length() > MAX_LAST_NAME_LEN) {
             msg.setErrorFieldName("lastName");
             msg.setStatus(Status.ERROR);
+            msg.setMessage("Error in validating "+msg.getErrorFieldName());
+
         } else if (lastName.length() == MAX_LAST_NAME_LEN) {
             msg.setStatus(Status.WARNING);
         } else {

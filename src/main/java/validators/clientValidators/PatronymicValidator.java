@@ -23,6 +23,8 @@ public class PatronymicValidator implements Validator {
                 patronymic.length() > MAX_PATRONYMIC_LEN) {
             msg.setErrorFieldName("patronymic");
             msg.setStatus(Status.ERROR);
+            msg.setMessage("Error in validating "+msg.getErrorFieldName());
+
         } else if (patronymic.length() == MAX_PATRONYMIC_LEN) {
             msg.setStatus(Status.WARNING);
         } else {

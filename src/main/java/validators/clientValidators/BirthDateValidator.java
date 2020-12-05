@@ -23,6 +23,8 @@ public class BirthDateValidator implements Validator {
             age>MAX_AGE) {
             msg.setErrorFieldName("birthDate");
             msg.setStatus(Status.ERROR);
+            msg.setMessage("Error in validating "+msg.getErrorFieldName());
+
         } else if (age< OK_AGE) {
             msg.setStatus(Status.WARNING);
         } else {

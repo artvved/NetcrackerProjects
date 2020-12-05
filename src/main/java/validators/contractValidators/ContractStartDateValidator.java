@@ -21,6 +21,8 @@ public class ContractStartDateValidator implements Validator {
         if (startDate.isBefore(MIN_DATE)) {
             msg.setErrorFieldName("startDate");
             msg.setStatus(Status.ERROR);
+            msg.setMessage("Error in validating "+msg.getErrorFieldName());
+
         } else if (startDate.equals(WARNING_DATE)) {
             msg.setStatus(Status.WARNING);
         } else {
