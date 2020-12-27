@@ -1,5 +1,6 @@
 package repository;
 
+import annotations.AutoInjectable;
 import domain.contracts.Contract;
 
 
@@ -9,6 +10,7 @@ import java.util.function.Predicate;
 
 public class ContractRepository {
     private Contract[] contracts;
+    @AutoInjectable
     private IRepositorySorter<Contract> sorter;
     /**
      * index of next free field in array of contracts
