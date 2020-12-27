@@ -129,4 +129,7 @@ public class ContractRepository {
 
     }
 
+    public IRepositorySorter<Contract> getSorter() {
+        return sorter;
+    }
 }

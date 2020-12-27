@@ -1,5 +1,6 @@
 package fileHandlers;
 
+import annotations.AutoInjectable;
 import domain.clients.Client;
 import domain.clients.util.Gender;
 import domain.contracts.CellularCommunicationContract;
@@ -34,7 +35,8 @@ import java.util.Set;
 
 public class CSVInfoLoader {
     private ContractRepository contractRepository;
-    private List<Validator> validators = new ArrayList<>();
+    @AutoInjectable
+    private List<Validator> validators;
 
     public CSVInfoLoader(ContractRepository contractRepository) {
         this.contractRepository = contractRepository;
@@ -208,5 +210,7 @@ public class CSVInfoLoader {
         this.contractRepository = contractRepository;
     }
 
-
+    public List<Validator> getValidators() {
+        return validators;
+    }
 }

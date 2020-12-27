@@ -5,58 +5,75 @@ import annotations.Configuration;
 import repository.ContractRepository;
 
 import java.io.File;
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+/**
+ * injects into given object autoinjectable instances of fields.
+ * Instances are found in packages which are provided by configuration annotation of Injector
+ */
 @Configuration(packages = {"repository", "validators"})
 public class Injector {
     public static <T> T inject(T object) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
-        // ContractRepository contractRepository = new ContractRepository();
+
         Class c = object.getClass();
         Field[] fields = c.getDeclaredFields();
 
         for (Field f : fields) {
             if (f.isAnnotationPresent(AutoInjectable.class)) {
-                System.out.println("da" + f.getName());
                 Class<?> fieldType = f.getType();
-
-
-                for (String pack : new String[]{"repository", "validators"}) {
+                Type suitableType;
+                if (!Collection.class.isAssignableFrom(fieldType)) {
+                    suitableType = f.getType();
+                } else {
+                    suitableType = f.getGenericType();
+                    ParameterizedType aType = (ParameterizedType) suitableType;
+                    Type[] fieldArgTypes = aType.getActualTypeArguments();
+                    suitableType = fieldArgTypes[0];
+                }
+                String[] packages=Injector.class.getAnnotation(Configuration.class).packages();
+                List<Class<?>> suitableClassesForInj = new ArrayList<>();
+                for (String pack : packages) {
                     List<Class<?>> classesInPackage = ClassFinder.processDirectory(
                             new File("src/main/java/" + pack), pack);
-                    List<Class<?>> suitableForInj = new ArrayList<>();
+
                     for (Class<?> classInP : classesInPackage) {
                         if (classInP.getInterfaces().length == 1 &&
-                                classInP.getInterfaces()[0].equals(fieldType)) {
-                            suitableForInj.add(classInP);
+                                classInP.getInterfaces()[0].equals(suitableType)) {
+                            suitableClassesForInj.add(classInP);
                         }
-                    }
-                    if (!Collection.class.isAssignableFrom(fieldType)) {
-                        if (suitableForInj.size() == 1) {
-                            f.setAccessible(true);
-                            f.set(object, suitableForInj.get(0).getDeclaredConstructor().newInstance());
-
-                        } else
-                            throw new ClassNotFoundException("Class not found or found more than 1. Can not inject");
-
-                    }else {
-                        List<Object> injection=new ArrayList<>();
-                        for(Class<?> sc:suitableForInj){
-                            injection.add(sc.getDeclaredConstructor().newInstance());
-                        }
-                        f.setAccessible(true);
-                        f.set(object, injection);
                     }
                 }
+                if (!Collection.class.isAssignableFrom(fieldType)) {
+                    if (suitableClassesForInj.size() == 1) {
+                        f.setAccessible(true);
+                        f.set(object, suitableClassesForInj.get(0).getDeclaredConstructor().newInstance());
+
+                    } else
+                        throw new ClassNotFoundException("Class not found or found more than 1. Can not inject");
+
+                } else {
+                    List<Object> injection = new ArrayList<>();
+                    for (Class<?> sc : suitableClassesForInj) {
+                        injection.add(sc.getDeclaredConstructor().newInstance());
+                    }
+                    f.setAccessible(true);
+                    f.set(object, injection);
+
+                }
+
             }
 
         }
 
-        System.out.println();
+
 
         return object;
     }
