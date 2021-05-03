@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 
 
 public class ContractRepository {
+    private static final int INITIAL_SIZE = 50;
     private Contract[] contracts;
     @AutoInjectable
     private IRepositorySorter<Contract> sorter;
@@ -110,7 +111,7 @@ public class ContractRepository {
     /**
      * sorts repository in certain way using certain comparison pattern
      *
-     * @param comparator  comparator is used to transfer certain criterion of comparison
+     * @param comparator comparator is used to transfer certain criterion of comparison
      */
     public void sort(Comparator<Contract> comparator) {
         sorter.sort(contracts, pointer, comparator);
@@ -131,5 +132,18 @@ public class ContractRepository {
 
     public IRepositorySorter<Contract> getSorter() {
         return sorter;
+    }
+
+    public void clear() {
+        contracts = new Contract[INITIAL_SIZE];
+        pointer = 0;
+    }
+
+    public void addAll(List<Contract> all) {
+        for (Contract contract : all) {
+            add(contract);
+
+
+        }
     }
 }

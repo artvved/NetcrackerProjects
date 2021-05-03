@@ -1,10 +1,11 @@
 package domain.contracts;
 
 import domain.clients.Client;
+import lombok.Builder;
 
 import java.time.LocalDate;
 import java.util.Date;
-
+@Builder
 public class WiredInternetContract extends Contract {
     private int maxInternetSpeed;
 

@@ -19,7 +19,7 @@ import java.util.List;
  * injects into given object autoinjectable instances of fields.
  * Instances are found in packages which are provided by configuration annotation of Injector
  */
-@Configuration(packages = {"repository", "validators"})
+@Configuration(packages = {"repository", "validators","dbloader"})
 public class Injector {
     public static <T> T inject(T object) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
 

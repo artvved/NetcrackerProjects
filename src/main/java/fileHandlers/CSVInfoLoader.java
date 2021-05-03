@@ -8,6 +8,7 @@ import domain.contracts.Contract;
 import domain.contracts.DigitalTVContract;
 import domain.contracts.WiredInternetContract;
 import domain.contracts.util.TVChannel;
+import domain.contracts.util.TVChannelEntity;
 import repository.ContractRepository;
 import validators.Status;
 import validators.ValidationResultMessage;
@@ -75,10 +76,12 @@ public class CSVInfoLoader {
         return false;
     }
 
-    private List<TVChannel> parseTVChannels(String[] channels) {
-        List<TVChannel> list = new ArrayList<>();
+    private List<TVChannelEntity> parseTVChannels(String[] channels) {
+        List<TVChannelEntity> list = new ArrayList<>();
         for (String channel : channels) {
-            list.add(TVChannel.valueOf(channel));
+            list.add(TVChannelEntity.builder()
+                    .name(TVChannel.valueOf(channel))
+                    .build());
         }
         return list;
     }
@@ -155,7 +158,7 @@ public class CSVInfoLoader {
                         break;
                     case "DigitalTVContract":
                         String[] stringChannels = stringContract[10].split(" ");
-                        List<TVChannel> channels = parseTVChannels(stringChannels);
+                        List<TVChannelEntity> channels = parseTVChannels(stringChannels);
                         contract = new DigitalTVContract(contractId, number, start, end, client, channels);
                         specList.add(new ChannelsPackageValidator());
                         validators.add(new ChannelsPackageValidator());

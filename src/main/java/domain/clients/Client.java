@@ -1,15 +1,16 @@
 package domain.clients;
 
 import domain.clients.util.Gender;
+import lombok.Builder;
 
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
 
-
 /**
  * @author artvved
  */
+@Builder
 public class Client {
 
     private Long id;

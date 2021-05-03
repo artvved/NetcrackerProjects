@@ -4,6 +4,7 @@ import domain.contracts.Contract;
 import domain.contracts.DigitalTVContract;
 import domain.contracts.WiredInternetContract;
 import domain.contracts.util.TVChannel;
+import domain.contracts.util.TVChannelEntity;
 import validators.Status;
 import validators.ValidationResultMessage;
 import validators.Validator;
@@ -15,7 +16,7 @@ public class ChannelsPackageValidator implements Validator {
     @Override
     public ValidationResultMessage validate(Contract contract) {
         ValidationResultMessage msg = new ValidationResultMessage();
-        List<TVChannel> channelsPackage = ((DigitalTVContract) contract).getChannelsPackage();
+        List<TVChannelEntity> channelsPackage = ((DigitalTVContract) contract).getChannelsPackage();
 
         if (channelsPackage == null ||
             channelsPackage.isEmpty()) {
