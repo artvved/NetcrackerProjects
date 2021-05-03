@@ -3,9 +3,12 @@ package domain.contracts;
 import domain.clients.Client;
 import lombok.Builder;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 import java.util.Date;
 @Builder
+
+@XmlRootElement
 public class WiredInternetContract extends Contract {
     private int maxInternetSpeed;
 

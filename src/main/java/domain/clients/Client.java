@@ -3,6 +3,9 @@ package domain.clients;
 import domain.clients.util.Gender;
 import lombok.Builder;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.Objects;
@@ -11,6 +14,8 @@ import java.util.Objects;
  * @author artvved
  */
 @Builder
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Client {
 
     private Long id;

@@ -3,9 +3,16 @@ package domain.contracts;
 import domain.clients.Client;
 import lombok.Builder;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlSeeAlso;
 import java.time.LocalDate;
 import java.util.Date;
 @Builder
+@XmlRootElement
+@XmlSeeAlso({CellularCommunicationContract.class, WiredInternetContract.class, DigitalTVContract.class})
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Contract {
     private Long id;
     private int number;

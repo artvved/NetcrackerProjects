@@ -3,7 +3,13 @@ package domain.contracts.util;
 import domain.contracts.Contract;
 import lombok.Builder;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlRootElement;
+
 @Builder
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class TVChannelEntity {
     private Long id;
     private TVChannel name;

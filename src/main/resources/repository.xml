@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<contractRepository>
+    <contracts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="cellularCommunicationContract" id="1">
+        <number>18</number>
+        <startDate>2015-05-27</startDate>
+        <endDate>1974-07-22</endDate>
+        <client id="5">
+            <firstName>ddddd</firstName>
+            <secondName>ddddd</secondName>
+            <patronymic>ddddd</patronymic>
+            <birthDate>2000-01-01</birthDate>
+            <gender>FEMALE</gender>
+            <passport>10007898</passport>
+        </client>
+        <minutes>78</minutes>
+        <megabytes>3</megabytes>
+        <sms>116</sms>
+    </contracts>
+    <contracts xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="wiredInternetContract" id="2">
+        <number>13</number>
+        <startDate>1974-12-10</startDate>
+        <endDate>1981-11-21</endDate>
+        <client id="3">
+            <firstName>dyuhjijkk</firstName>
+            <secondName>dadad</secondName>
+            <patronymic>dsssd</patronymic>
+            <birthDate>2000-01-01</birthDate>
+            <gender>MALE</gender>
+            <passport>100067</passport>
+        </client>
+        <maxInternetSpeed>100</maxInternetSpeed>
+    </contracts>
+
+
+
+    <pointer>2</pointer>
+</contractRepository>

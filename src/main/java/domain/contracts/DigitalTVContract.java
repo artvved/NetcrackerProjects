@@ -5,10 +5,12 @@ import domain.contracts.util.TVChannel;
 import domain.contracts.util.TVChannelEntity;
 import lombok.Builder;
 
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 @Builder
+@XmlRootElement
 public class DigitalTVContract extends Contract {
     private List<TVChannelEntity> channelsPackage;
 

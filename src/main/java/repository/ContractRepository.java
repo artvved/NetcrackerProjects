@@ -4,18 +4,23 @@ import annotations.AutoInjectable;
 import domain.contracts.Contract;
 
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.*;
 import java.util.function.Predicate;
 
-
+@XmlRootElement
 public class ContractRepository {
     private static final int INITIAL_SIZE = 50;
+    @XmlElement(name = "contracts")
     private Contract[] contracts;
     @AutoInjectable
     private IRepositorySorter<Contract> sorter;
+
     /**
      * index of next free field in array of contracts
      */
+    @XmlElement
     private int pointer = 0;
 
     /**
