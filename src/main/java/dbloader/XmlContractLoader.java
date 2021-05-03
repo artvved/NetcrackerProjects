@@ -64,6 +64,6 @@ public class XmlContractLoader {
     }
 
     public ContractRepository load() throws JAXBException, FileNotFoundException {
-        return load("files/repository.xml");
+        return load("src/main/resources/repository.xml");
     }
 }
