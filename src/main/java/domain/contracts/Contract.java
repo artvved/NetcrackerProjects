@@ -5,7 +5,7 @@ import lombok.Builder;
 
 import java.time.LocalDate;
 import java.util.Date;
-@Builder
+
 public class Contract {
     private Long id;
     private int number;

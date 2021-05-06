@@ -21,7 +21,7 @@ import java.util.logging.FileHandler;
 
 public class InjectorTest extends TestCase {
     @Test
-    public void testInject() throws ClassNotFoundException, NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    public void testInject() throws InjectionException {
         ContractRepository contractRepository=new ContractRepository();
         Injector.inject(contractRepository);
         Assert.assertNotNull(contractRepository.getSorter());

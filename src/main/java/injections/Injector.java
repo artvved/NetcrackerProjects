@@ -19,9 +19,9 @@ import java.util.List;
  * injects into given object autoinjectable instances of fields.
  * Instances are found in packages which are provided by configuration annotation of Injector
  */
-@Configuration(packages = {"repository", "validators","dbloader"})
+@Configuration(packages = {"repository", "validators"})
 public class Injector {
-    public static <T> T inject(T object) throws ClassNotFoundException, NoSuchMethodException, IllegalAccessException, InvocationTargetException, InstantiationException {
+    public static <T> T inject(T object) throws InjectionException {
 
         Class c = object.getClass();
         Field[] fields = c.getDeclaredFields();
@@ -38,7 +38,7 @@ public class Injector {
                     Type[] fieldArgTypes = aType.getActualTypeArguments();
                     suitableType = fieldArgTypes[0];
                 }
-                String[] packages=Injector.class.getAnnotation(Configuration.class).packages();
+                String[] packages = Injector.class.getAnnotation(Configuration.class).packages();
                 List<Class<?>> suitableClassesForInj = new ArrayList<>();
                 for (String pack : packages) {
                     List<Class<?>> classesInPackage = ClassFinder.processDirectory(
@@ -51,28 +51,31 @@ public class Injector {
                         }
                     }
                 }
-                if (!Collection.class.isAssignableFrom(fieldType)) {
-                    if (suitableClassesForInj.size() == 1) {
+                try {
+                    if (!Collection.class.isAssignableFrom(fieldType)) {
+                        if (suitableClassesForInj.size() == 1) {
+                            f.setAccessible(true);
+                            f.set(object, suitableClassesForInj.get(0).getDeclaredConstructor().newInstance());
+
+                        } else
+                            throw new ClassNotFoundException("Class not found or found more than 1. Can not inject");
+
+                    } else {
+                        List<Object> injection = new ArrayList<>();
+                        for (Class<?> sc : suitableClassesForInj) {
+                            injection.add(sc.getDeclaredConstructor().newInstance());
+                        }
                         f.setAccessible(true);
-                        f.set(object, suitableClassesForInj.get(0).getDeclaredConstructor().newInstance());
+                        f.set(object, injection);
 
-                    } else
-                        throw new ClassNotFoundException("Class not found or found more than 1. Can not inject");
-
-                } else {
-                    List<Object> injection = new ArrayList<>();
-                    for (Class<?> sc : suitableClassesForInj) {
-                        injection.add(sc.getDeclaredConstructor().newInstance());
                     }
-                    f.setAccessible(true);
-                    f.set(object, injection);
+                } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | InvocationTargetException | IllegalAccessException e) {
+                    throw new InjectionException(e);
 
                 }
-
             }
 
         }
-
 
 
         return object;

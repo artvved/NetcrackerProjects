@@ -10,7 +10,7 @@ import java.util.Objects;
 /**
  * @author artvved
  */
-@Builder
+
 public class Client {
 
     private Long id;

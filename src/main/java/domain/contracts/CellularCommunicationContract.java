@@ -5,7 +5,7 @@ import lombok.Builder;
 
 import java.time.LocalDate;
 import java.util.Date;
-@Builder
+
 public class CellularCommunicationContract extends Contract {
     private int minutes;
     private int megabytes;
@@ -45,4 +45,5 @@ public class CellularCommunicationContract extends Contract {
     public void setSms(int sms) {
         this.sms = sms;
     }
+
 }
